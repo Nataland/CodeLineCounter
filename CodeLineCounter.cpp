@@ -95,12 +95,15 @@ void readFile(istream &stream, string lang = "default") {
                 }
                 numPyLinesInThisBlock++;
             }
-        } else if (whereSingleComment == string::npos && lang == "py") {
-            if (isPyLineInBlock && numPyLinesInThisBlock > 1) {
-                numBlockComments++;
-                numCommentLinesWithinBlockComments += numPyLinesInThisBlock;
-                isPyLineInBlock = false;
-            }
+        } else if (isPyLineInBlock && whereSingleComment == string::npos && lang == "py" && numPyLinesInThisBlock > 1) {
+            cout << fileSource << endl;
+            numBlockComments++;
+            numCommentLinesWithinBlockComments += numPyLinesInThisBlock;
+            isPyLineInBlock = false;
+            numPyLinesInThisBlock = 0;
+        } else if (isPyLineInBlock && whereSingleComment == string::npos && lang == "py" && numPyLinesInThisBlock == 1) {
+            isPyLineInBlock = false;
+            numPyLinesInThisBlock = 0;
         }
 
         if (lang != "py") {
@@ -121,8 +124,8 @@ void readFile(istream &stream, string lang = "default") {
     }
 
     cout << "Total # of lines: " << numLines << endl;
-    cout << "Total # of comment lines: " << numCommentLines << endl;
-    cout << "Total # of single line comments: " << numCommentLines - numCommentLinesWithinBlockComments << endl;
+    cout << "Total # of comment lines: " << numCommentLines + numCommentLinesWithinBlockComments << endl;
+    cout << "Total # of single line comments: " << numCommentLines<< endl;
     cout << "Total # of comment lines within block comments: " << numCommentLinesWithinBlockComments << endl;
     cout << "Total # of block line comments: " << numBlockComments << endl;
     cout << "Total # of TODO’s: " << numTODOs << endl;
@@ -135,7 +138,7 @@ int main(int argc, char *argv[]) {
         for (int i = 1; i < argc; ++i) {
             char *name = argv[i];
             string fileName{name};
-            cout << "File:L " << fileName << endl;
+            cout << "File: " << fileName << endl;
             ifstream fs{fileName};
 
             // find the extension of file (e.g. py, cpp, c, h, cc or java)
