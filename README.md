@@ -1,6 +1,6 @@
 # CodeLineCounter
 
-## What does this do
+### What does this do
 1) When a file is checked in, scan the file to count the total number of lines.
 2) Scan the file to identify comments and count the total lines of comments in the file.
 3) After identifying the lines of comments, scan to segregate the total number of single line
@@ -12,9 +12,9 @@ and also a comment line.
 checked in without an extension can be ignored. You can also ignore file names that
 start with a ‘.’.
 
-## Usage
-'''
+### Usage
+```
 g++ std=c++14 CodeLineCounter.cpp
 ./a.out file1.cpp file2.cpp file3.cpp
-'''
+```
 Alternatively, this program takes input from std::cin and the default language is c/c++/java. However, inputting file names is recommended since you can pass in many files in one call.
