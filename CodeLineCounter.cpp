@@ -96,7 +96,6 @@ void readFile(istream &stream, string lang = "default") {
                 numPyLinesInThisBlock++;
             }
         } else if (isPyLineInBlock && whereSingleComment == string::npos && lang == "py" && numPyLinesInThisBlock > 1) {
-            cout << fileSource << endl;
             numBlockComments++;
             numCommentLinesWithinBlockComments += numPyLinesInThisBlock;
             isPyLineInBlock = false;
@@ -144,8 +143,6 @@ int main(int argc, char *argv[]) {
             // find the extension of file (e.g. py, cpp, c, h, cc or java)
             size_t found = fileName.find_last_of(".");
             string ext = fileName.substr(found + 1);
-            cout << "extension: " << ext << endl;
-
 
             if (ext == "cpp" || ext == "cc" || ext == "h" || ext == "c" || ext == "java") {
                 ext = "default";
